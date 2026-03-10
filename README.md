@@ -26,7 +26,7 @@ In this course, I am learning how to use **R**, *R Markdown*, and **GitHub** for
 1. Playing **tennis**
 2. **Hiking**
 3. **Travelling** around the world
-4. Listening to **music** and **Movie**
+4. Listening to **music** and watching **movies**
 
    - Favourite HK singer: [Michael Cheung (MC)](https://en.wikipedia.org/wiki/MC_(singer))
    - Favourite movie: [Minions](https://en.wikipedia.org/wiki/Minions_(film))
