@@ -18,6 +18,7 @@ In this course, I am learning how to use **R**, *R Markdown*, and **GitHub** for
 ### My current study mood
 
 When assignments start piling up
+
 ![](https://media.giphy.com/media/13HgwGsXF0aiGY/giphy.gif)
 
 ---
