@@ -17,6 +17,7 @@ In this course, I am learning how to use **R**, *R Markdown*, and **GitHub** for
 
 ### My current study mood
 
+When assignments start piling up
 ![](https://media.giphy.com/media/13HgwGsXF0aiGY/giphy.gif)
 
 ---
@@ -32,5 +33,7 @@ In this course, I am learning how to use **R**, *R Markdown*, and **GitHub** for
    - Favourite movie: [Minions](https://en.wikipedia.org/wiki/Minions_(film))
 
 ### My spare time mood
+
+Relaxing after finishing my work
 
 ![](https://cdn.pixabay.com/animation/2024/10/18/13/57/13-57-40-141_512.gif)
