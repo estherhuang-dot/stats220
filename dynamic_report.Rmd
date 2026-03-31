@@ -12,17 +12,17 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 body {
   background-color: #f9f9f9;
   font-family: Arial, sans-serif;
-  font-size: 18px
+  font-size: 18px;
 }
 
 h1 {
   color: #336699;
-  font-size: 36px
+  font-size: 36px;
 }
 
 h2 {
   color: #824670;
-  font-size: 28px
+  font-size: 28px;
   margin-top:30px;
 }
 
@@ -36,16 +36,99 @@ img {
 }
 ```
 
-## What's going on with this data?
+## Headphone usage in public spaces
 
-You need to change the contents of this Rmd! Replace the R code and markdown give below in this template document.
+This report presents observational data on headphone usage in different public spaces. The data was collected across multiple observations, recording the number of people wearing headphones, the total number of people in the observation area, the most commonly observed headphone type, the location, and the time of day.
 
 ```{r}
-pets <- c("cat", "dog", "turtle", "rabbit")
-best_pet <- pets[1]
+# Load tidyverse package
+library(tidyverse)
+
+# Import survey data
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQLUgGUihmvvz_DutjxNjnmKPwgq92AzYAbTYkkDlYWTHmuQ2zKTEyYGCrJPnSK21wjsmFpjeGQMZ5d/pub?gid=530894597&single=true&output=csv")
+
+# Rename the variables of the data frame
+latest_data <- logged_data %>%
+  rename(
+    headphone_count = `How many people are wearing headphones in your observation area?`,
+    total_people = `Approximately how many people are in the observation area?`,
+    headphone_type = `What type of headphone is most commonly observed?`,
+    location = `Where is this observation taking place?`,
+    time_of_day = `What time of day is this observation?`
+  )
+
+# Create new variable for proportion
+latest_data <- latest_data %>%
+  mutate(
+    headphone_prop = headphone_count / total_people
+  )
+
+#summary_stats
+summary_stats <- latest_data %>%
+  summarise(
+    mean_headphones = mean(headphone_count, na.rm = TRUE),
+    max_headphones = max(headphone_count, na.rm = TRUE),
+    mean_headphone_prop = mean(headphone_prop, na.rm = TRUE)
+  )
+
+mean_headphones <- summary_stats$mean_headphones
+max_headphones <- summary_stats$max_headphones
+mean_prop <- summary_stats$mean_headphone_prop
+
+# number of observations
+n_observations <- nrow(latest_data)
+
+# Count for headphones type and locations
+type_counts <- count(latest_data, headphone_type)
+
+location_counts <- count(latest_data, location)
+
+# Most common headphone type and locations
+most_common_type <- type_counts %>%
+  arrange(desc(n)) %>% slice(1)
+
+most_common_location <- location_counts %>%
+  arrange(desc(n)) %>% slice(1)
 
 ```
 
-The best pet to have is a `r best_pet` of course!
+A total of `r n_observations` observations were recorded.
 
-![](https://c.tenor.com/-qBsG1HwR4oAAAAC/tenor.gif)
+On average, about `r round(mean_headphones, 1)` people were wearing headphones in each observation.
+
+The highest number of people wearing headphones in a single observation was `r max_headphones`.
+
+On average, around `r round(mean_prop * 100, 1)`% of people in an observation area were wearing headphones.
+
+The most commonly observed headphone type was `r most_common_type$headphone_type`, with `r most_common_type$n` observations.
+
+The location with the most observations was `r most_common_location$location`.
+
+```{r}
+# Bar chart 1: Headphone type 
+
+ggplot(latest_data, aes(x = stringr::str_wrap(headphone_type, width = 15))) +
+  geom_bar() +
+  labs(
+    title = "Most commonly observed headphone type",
+    x = "Headphone type",
+    y = "Number of observations"
+  ) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+# Bar chart 2: Headphone type by location 
+
+ggplot(latest_data, aes(x = stringr::str_wrap(location, width = 15), fill = headphone_type)) +
+  geom_bar() +
+  labs(
+    title = "Headphone type observed by location",
+    x = "Location",
+    y = "Number of observations",
+    fill = "Headphone type"
+  ) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+The bar charts show that in-ear headphones are the most commonly observed type. The distribution of headphone types also varies across different locations.
