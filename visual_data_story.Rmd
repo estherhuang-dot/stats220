@@ -1,0 +1,94 @@
+---
+title: A visual Story of Headphone Use in Public Spaces
+output: html_document
+---
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+```
+
+```{js}
+$(function() {
+  $(".level2").css('visibility', 'hidden');
+  $(".level2").first().css('visibility', 'visible');
+  $(".container-fluid").height($(".container-fluid").height() + 300);
+  $(window).on('scroll', function() {
+    $('h2').each(function() {
+      var h2Top = $(this).offset().top - $(window).scrollTop();
+      var windowHeight = $(window).height();
+      if (h2Top >= 0 && h2Top <= windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'visible');
+      } else if (h2Top > windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'hidden');
+      }
+    });
+  });
+})
+```
+
+```{css}
+.figcaption {display: none}
+
+body {
+  background-color: #FFF8F0;
+  color: #222222;
+  font-family: Georgia, serif;
+}
+
+h1 {
+  color: #6A4C93;
+  text-align: center;
+}
+
+h2 {
+  color: #1982C4;
+  border-bottom: 3px solid #FFCA3A;
+  padding-bottom: 8px;
+}
+
+p {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  margin: auto;
+  max-width: 85%;
+  border-radius: 12px;
+}
+```
+
+## What's happening around us?
+
+This visual data story explores headphone usage in public spaces based on daily observations. The data includes the number of people wearing headphones, the total number of people observed in the area, the most commonly observed headphone type, the location, and the time of day.
+
+## Where are headphones most common?
+
+![Bar chart showing the average proportion of people wearing headphones across different locations.](plot1.png)
+
+This visualisation compares headphone usage across different observation locations, including streets and walking areas, campuses, buses/public transport, and shopping or indoor public spaces. Around 50% of people were wearing headphones in shopping and indoor public spaces, followed by 48% in buses/public transport, 41% on campus, and 32% in streets and walking areas.
+
+## What headphone types appear most often?
+
+![Bar chart showing the frequency of different headphone types observed.](plot2.png)
+
+This visualisation shows which headphone types were observed most often during the data collection process. The most commonly observed headphone type was in-ear headphones, followed by over-ear headphones and wired headphones. Some observations also recorded no clearly visible headphone type.
+
+## When were observations logged?
+
+![Line chart showing the number of observations logged by hour of the day.](plot3.png)
+
+This visualisation uses timestamps from the Google Form to show when observations were logged. Most of the data was logged during the late evening and night, while smaller amounts of data were logged during the morning and afternoon.
+
+## What time of day appeared most often?
+
+![Bar chart showing the number of observations recorded during different times of day.](plot4.png)
+
+This visualisation summarises observations by time of day. The time categories included morning (6am–11am), afternoon (11am–4pm), evening (4pm–8pm), and night (after 8pm). Afternoon had the highest number of observations, followed by morning, evening, and night.
+
+## What does the story suggest?
+
+Overall, the data suggests that headphone use is common across many everyday public spaces. The visualisations show differences in headphone usage across locations and headphone types. While Plot 3 mainly reflects the times when observations were logged into the Google Form, Plot 4 provides a clearer summary of the actual observation periods throughout the day.
